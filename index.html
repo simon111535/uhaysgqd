@@ -1,0 +1,1504 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="title" content="Elementals">
+
+    <title>Elementals | Aromas Naturales</title>
+
+    <style>
+
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: black;
+            color: white;
+            overflow-x: hidden;
+            transition: background-color 0.5s ease;
+        }
+
+        /* ================= HEADER ================= */
+
+        header{
+            background: rgba(0,0,0,0.7);
+            padding: 25px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+        }
+
+        header h1{
+            font-size: 3rem;
+            letter-spacing: 4px;
+            color: #f5c56b;
+        }
+
+        header p{
+            margin-top: 10px;
+            color: #ddd;
+        }
+
+        nav{
+            margin-top: 20px;
+        }
+
+        nav ul{
+            list-style: none;
+        }
+
+        nav ul li{
+            display: inline-block;
+            margin: 0 15px;
+        }
+
+        nav ul li a{
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        nav ul li a:hover{
+            color: #f5c56b;
+        }
+
+        /* ================= MAIN ================= */
+
+        main{
+            background-image: url("elementsss.png");
+            background-size: 55%;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            padding: 60px;
+            position: relative;
+            transition: 0.5s ease;
+        }
+
+        main::before{
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.82);
+            transition: 0.5s ease;
+        }
+
+        /* ================= EFECTOS HOVER ================= */
+
+        body:has(#fire:hover){
+            background-color: #2a0000;
+        }
+
+        body:has(#water:hover){
+            background-color: #001f3d;
+        }
+
+        body:has(#earth:hover){
+            background-color: #0d2b12;
+        }
+
+        body:has(#wind:hover){
+            background-color: #3b3b3b;
+        }
+
+        body:has(#fire:hover) main,
+        body:has(#water:hover) main,
+        body:has(#earth:hover) main,
+        body:has(#wind:hover) main{
+            background-image: none;
+        }
+
+        /* ================= CONTENIDO ================= */
+
+        .contenido{
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ================= BIENVENIDA ================= */
+
+        .bienvenida{
+            text-align: center;
+            margin-bottom: 70px;
+        }
+
+        .bienvenida h2{
+            font-size: 3.5rem;
+            color: #f5c56b;
+            margin-bottom: 20px;
+        }
+
+        .bienvenida p{
+            max-width: 850px;
+            margin: auto;
+            color: #ddd;
+            line-height: 1.9;
+            font-size: 1.1rem;
+        }
+
+        /* ================= FRAGANCIAS ================= */
+
+        .fragancias{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 35px;
+        }
+
+        .card{
+            background: rgba(255,255,255,0.08);
+            border-radius: 25px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: 0.4s;
+            box-shadow: 0px 5px 20px rgba(0,0,0,0.5);
+        }
+
+        .card:hover{
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0px 0px 25px rgba(255,255,255,0.2);
+        }
+
+        .card img{
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            border-bottom: 2px solid rgba(255,255,255,0.1);
+        }
+
+        .card-content{
+            padding: 25px;
+        }
+
+        .card-content h3{
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: #f5c56b;
+        }
+
+        .card-content p{
+            color: #ddd;
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        /* ================= BOTON ================= */
+
+        .btn{
+            display: inline-block;
+            margin-top: 25px;
+            padding: 12px 25px;
+            background: #f5c56b;
+            color: black;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn:hover{
+            background: white;
+            transform: scale(1.05);
+        }
+
+        /* ================= INFO EXTRA ================= */
+
+        .info-extra{
+
+            max-height: 0;
+
+            overflow: hidden;
+
+            transition: .5s ease;
+
+            opacity: 0;
+        }
+
+        .info-extra.active{
+
+            max-height: 300px;
+
+            opacity: 1;
+
+            margin-top: 20px;
+        }
+
+        .info-extra h4{
+
+            color: #f5c56b;
+
+            margin-bottom: 10px;
+        }
+
+        .info-extra p{
+
+            color: #ddd;
+
+            line-height: 1.7;
+        }
+
+        /* ================= PAGINAS INDIVIDUALES ================= */
+
+        .element-page{
+
+            display: none;
+
+            position: fixed;
+
+            inset: 0;
+
+            background:
+            linear-gradient(
+            135deg,
+            #050505,
+            #111
+            );
+
+            z-index: 9999;
+
+            padding: 60px;
+
+            text-align: center;
+
+            overflow-y: auto;
+        }
+
+        .element-page.active{
+
+            display: block;
+        }
+
+        .element-page img{
+
+            width: 320px;
+
+            max-width: 90%;
+
+            border-radius: 25px;
+
+            margin-bottom: 30px;
+
+            box-shadow:
+            0 0 35px rgba(245,197,107,.2);
+        }
+
+        .element-page h2{
+
+            font-size: 4rem;
+
+            color: #f5c56b;
+
+            margin-bottom: 25px;
+        }
+
+        .element-page p{
+
+            max-width: 850px;
+
+            margin: auto;
+
+            line-height: 2;
+
+            color: #ddd;
+
+            font-size: 1.1rem;
+
+            margin-bottom: 30px;
+        }
+
+        .element-page h3{
+
+            color: white;
+
+            font-size: 2rem;
+
+            margin-bottom: 30px;
+        }
+
+        /* ================= RECOMENDACIONES ================= */
+
+        .recomendaciones{
+            margin-top: 100px;
+            text-align: center;
+        }
+
+        .recomendaciones h2{
+            font-size: 3rem;
+            margin-bottom: 50px;
+            color: #f5c56b;
+        }
+
+        .recomendaciones-grid{
+            display: grid;
+            grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+            gap: 30px;
+        }
+
+        .recomendacion-card{
+            background: rgba(255,255,255,0.06);
+            padding: 35px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            transition: .4s;
+        }
+
+        .recomendacion-card:hover{
+            transform: translateY(-8px);
+            box-shadow: 0 0 20px rgba(245,197,107,.2);
+        }
+
+        .recomendacion-card h3{
+            margin-bottom: 20px;
+            color: #f5c56b;
+        }
+
+        /* ================= CONTACTO ================= */
+
+        .contacto{
+            margin-top: 120px;
+            text-align: center;
+        }
+
+        .contacto h2{
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #f5c56b;
+        }
+
+        .contacto p{
+            color: #ddd;
+            margin-bottom: 40px;
+        }
+
+        .contacto form{
+            max-width: 700px;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contacto input,
+        .contacto textarea{
+            padding: 18px;
+            border: none;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.08);
+            color: white;
+            outline: none;
+        }
+
+        .contacto textarea{
+            height: 180px;
+            resize: none;
+        }
+
+        /* ================= REDES ================= */
+
+        .redes{
+            margin-top: 100px;
+            text-align: center;
+        }
+
+        .redes h2{
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: #f5c56b;
+        }
+
+        .social-links{
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .social-links a{
+            text-decoration: none;
+            color: white;
+            background: rgba(255,255,255,0.08);
+            padding: 15px 25px;
+            border-radius: 12px;
+            transition: .3s;
+        }
+
+        .social-links a:hover{
+            background: #f5c56b;
+            color: black;
+            transform: scale(1.05);
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer{
+            background: #050505;
+            text-align: center;
+            padding: 35px;
+            color: #999;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 80px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<header>
+
+    <h1>ELEMENTALS</h1>
+
+    <p>La esencia de la naturaleza en cada aroma</p>
+
+    <nav>
+        <ul>
+
+            <li>
+                <a onclick="cerrarElementos()">
+                    Inicio
+                </a>
+            </li>
+
+            <li>
+                <a onclick="abrirElemento('fire-page')">
+                    Fire
+                </a>
+            </li>
+
+            <li>
+                <a onclick="abrirElemento('water-page')">
+                    Water
+                </a>
+            </li>
+
+            <li>
+                <a onclick="abrirElemento('earth-page')">
+                    Earth
+                </a>
+            </li>
+
+            <li>
+                <a onclick="abrirElemento('wind-page')">
+                    Wind
+                </a>
+            </li>
+
+        </ul>
+    </nav>
+
+</header>
+
+<main>
+
+<div class="contenido">
+
+<section class="bienvenida">
+
+    <h2>Descubre los 4 Elementos</h2>
+
+    <p>
+        Cada fragancia de Elementals representa una fuerza natural.
+        Diseñadas para transmitir personalidad, energía y elegancia.
+    </p>
+
+</section>
+
+<section class="fragancias">
+
+    <!-- FIRE -->
+    <div class="card" id="fire">
+
+        <img src="fire.png" alt="Fire Essence">
+
+        <div class="card-content">
+
+            <h3>🔥 Fire Essence</h3>
+
+            <p>
+                Fragancia intensa y poderosa inspirada en el fuego.
+            </p>
+
+            <button class="btn" onclick="mostrarInfo('fireInfo')">
+                Explorar
+            </button>
+
+            <div class="info-extra" id="fireInfo">
+
+                <h4>Precio: $145.000</h4>
+
+                <p>
+                    Notas de canela, cuero y vainilla ahumada.
+                    Diseñada para personas intensas y elegantes.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- WATER -->
+    <div class="card" id="water">
+
+        <img src="water.png" alt="Water Essence">
+
+        <div class="card-content">
+
+            <h3>💧 Water Essence</h3>
+
+            <p>
+                Inspirada en la frescura del océano y la pureza del agua.
+            </p>
+
+            <button class="btn" onclick="mostrarInfo('waterInfo')">
+                Explorar
+            </button>
+
+            <div class="info-extra" id="waterInfo">
+
+                <h4>Precio: $130.000</h4>
+
+                <p>
+                    Notas acuáticas, cítricas y menta fresca.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- EARTH -->
+    <div class="card" id="earth">
+
+        <img src="earth.png" alt="Earth Essence">
+
+        <div class="card-content">
+
+            <h3>🌿 Earth Essence</h3>
+
+            <p>
+                Esencia elegante y natural con notas verdes y madera.
+            </p>
+
+            <button class="btn" onclick="mostrarInfo('earthInfo')">
+                Explorar
+            </button>
+
+            <div class="info-extra" id="earthInfo">
+
+                <h4>Precio: $138.000</h4>
+
+                <p>
+                    Aroma con sándalo, cedro y hojas verdes.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- WIND -->
+    <div class="card" id="wind">
+
+        <img src="wind.png" alt="Wind Essence">
+
+        <div class="card-content">
+
+            <h3>🌪 Wind Essence</h3>
+
+            <p>
+                Ligera, moderna y refrescante inspirada en el viento.
+            </p>
+
+            <button class="btn" onclick="mostrarInfo('windInfo')">
+                Explorar
+            </button>
+
+            <div class="info-extra" id="windInfo">
+
+                <h4>Precio: $125.000</h4>
+
+                <p>
+                    Mezcla floral y fresca con almizcle suave.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= PAGINAS INDIVIDUALES ================= -->
+
+<div class="element-page" id="fire-page">
+
+    <img src="fire.png" alt="Fire">
+
+    <h2>🔥 Fire Essence</h2>
+
+    <p>
+        Fire Essence representa intensidad, pasión
+        y elegancia absoluta.
+    </p>
+
+    <h3>Precio: $145.000</h3>
+
+    <button class="btn" onclick="cerrarElementos()">
+        Volver
+    </button>
+
+</div>
+
+<div class="element-page" id="water-page">
+
+    <img src="water.png" alt="Water">
+
+    <h2>💧 Water Essence</h2>
+
+    <p>
+        Inspirada en el océano y la libertad.
+    </p>
+
+    <h3>Precio: $130.000</h3>
+
+    <button class="btn" onclick="cerrarElementos()">
+        Volver
+    </button>
+
+</div>
+
+<div class="element-page" id="earth-page">
+
+    <img src="earth.png" alt="Earth">
+
+    <h2>🌿 Earth Essence</h2>
+
+    <p>
+        Una esencia sofisticada inspirada en estabilidad y naturaleza.
+    </p>
+
+    <h3>Precio: $138.000</h3>
+
+    <button class="btn" onclick="cerrarElementos()">
+        Volver
+    </button>
+
+</div>
+
+<div class="element-page" id="wind-page">
+
+    <img src="wind.png" alt="Wind">
+
+    <h2>🌪 Wind Essence</h2>
+
+    <p>
+        Inspirada en el movimiento y libertad del viento.
+    </p>
+
+    <h3>Precio: $125.000</h3>
+
+    <button class="btn" onclick="cerrarElementos()">
+        Volver
+    </button>
+
+</div>
+
+<!-- RECOMENDACIONES -->
+
+<section class="recomendaciones">
+
+    <h2>✨ Recomendaciones</h2>
+
+    <div class="recomendaciones-grid">
+
+        <div class="recomendacion-card">
+
+            <h3>🔥 Para noches elegantes</h3>
+
+            <p>
+                Fire Essence es perfecta para eventos nocturnos.
+            </p>
+
+        </div>
+
+        <div class="recomendacion-card">
+
+            <h3>💧 Para uso diario</h3>
+
+            <p>
+                Water Essence transmite frescura y tranquilidad.
+            </p>
+
+        </div>
+
+        <div class="recomendacion-card">
+
+            <h3>🌿 Elegancia natural</h3>
+
+            <p>
+                Earth Essence combina serenidad y sofisticación.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- CONTACTO -->
+
+<section class="contacto">
+
+    <h2>📩 Contáctanos</h2>
+
+    <p>
+        Descubre cuál es tu esencia ideal.
+    </p>
+
+    <form>
+
+        <input type="text" placeholder="Tu nombre">
+
+        <input type="email" placeholder="Tu correo">
+
+        <textarea placeholder="Escribe tu mensaje"></textarea>
+
+        <button type="submit" class="btn">
+            Enviar mensaje
+        </button>
+
+    </form>
+
+</section>
+
+<!-- REDES -->
+
+<section class="redes">
+
+    <h2>Síguenos</h2>
+
+    <div class="social-links">
+
+        <a href="https://instagram.com" target="_blank">
+            Instagram
+        </a>
+
+        <a href="https://tiktok.com" target="_blank">
+            TikTok
+        </a>
+
+        <a href="https://facebook.com" target="_blank">
+            Facebook
+        </a>
+
+        <a href="https://wa.me/573000000000" target="_blank">
+            WhatsApp
+        </a>
+
+    </div>
+
+</section>
+
+</div>
+
+</main>
+
+<footer>
+
+    <p>© 2026 ELEMENTALS - Todos los derechos reservados.</p>
+
+</footer>
+
+<script>
+
+function mostrarInfo(id){
+
+    const todas =
+    document.querySelectorAll('.info-extra');
+
+    todas.forEach(info => {
+
+        if(info.id !== id){
+
+            info.classList.remove('active');
+
+        }
+
+    });
+
+    const actual =
+    document.getElementById(id);
+
+    actual.classList.toggle('active');
+}
+
+/* ================= PAGINAS ================= */
+
+function abrirElemento(id){
+
+    cerrarElementos();
+
+    document
+    .getElementById(id)
+    .classList.add('active');
+
+    window.scrollTo(0,0);
+}
+
+function cerrarElementos(){
+
+    const paginas =
+    document.querySelectorAll('.element-page');
+
+    paginas.forEach(pagina => {
+
+        pagina.classList.remove('active');
+
+    });
+}
+
+</script>
+
+</body>
+</html> <!-- ================= BOTONES DE LAS FRAGANCIAS ================= -->
+
+<!-- FIRE -->
+<button class="btn"
+onclick="agregarCarrito('Fire Essence',79900)">
+    Agregar al carrito
+</button>
+
+<!-- WATER -->
+<button class="btn"
+onclick="agregarCarrito('Water Essence',64900)">
+    Agregar al carrito
+</button>
+
+<!-- EARTH -->
+<button class="btn"
+onclick="agregarCarrito('Earth Essence',74900)">
+    Agregar al carrito
+</button>
+
+<!-- WIND -->
+<button class="btn"
+onclick="agregarCarrito('Wind Essence',69900)">
+    Agregar al carrito
+</button>
+
+<!-- ================= CARRITO ================= -->
+
+<section class="carrito">
+
+    <h2>🛒 Carrito de Compras</h2>
+
+    <div id="lista-carrito">
+
+        <p class="vacio">
+            No hay productos agregados.
+        </p>
+
+    </div>
+
+    <h3 id="total">
+        Total: $0 COP
+    </h3>
+
+    <button class="btn finalizar-btn"
+    onclick="finalizarCompra()">
+
+        Finalizar Compra
+
+    </button>
+
+</section>
+
+<style>
+
+/* ================= CARRITO ================= */
+
+.carrito{
+
+    margin-top: 120px;
+
+    background:
+    rgba(255,255,255,.05);
+
+    padding: 45px;
+
+    border-radius: 30px;
+
+    backdrop-filter: blur(10px);
+
+    box-shadow:
+    0 0 35px rgba(0,0,0,.5);
+}
+
+.carrito h2{
+
+    text-align: center;
+
+    font-size: 3rem;
+
+    color: #f5c56b;
+
+    margin-bottom: 40px;
+}
+
+#lista-carrito{
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 20px;
+}
+
+.item-carrito{
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    background:
+    rgba(255,255,255,.06);
+
+    padding: 25px;
+
+    border-radius: 18px;
+
+    flex-wrap: wrap;
+}
+
+.item-info h4{
+
+    color: #f5c56b;
+
+    margin-bottom: 8px;
+
+    font-size: 1.3rem;
+}
+
+.item-info p{
+
+    color: #ddd;
+}
+
+.btn-eliminar{
+
+    background: crimson;
+
+    border: none;
+
+    color: white;
+
+    padding: 12px 18px;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+
+    transition: .3s;
+}
+
+.btn-eliminar:hover{
+
+    background: red;
+
+    transform: scale(1.05);
+}
+
+#total{
+
+    margin-top: 35px;
+
+    text-align: right;
+
+    color: #f5c56b;
+
+    font-size: 2rem;
+}
+
+.finalizar-btn{
+
+    width: 100%;
+
+    margin-top: 30px;
+
+    padding: 18px;
+
+    font-size: 1.1rem;
+}
+
+.vacio{
+
+    text-align: center;
+
+    color: #999;
+}
+
+</style>
+
+<script>
+
+/* ================= INFO ================= */
+
+function mostrarInfo(id){
+
+    const todas =
+    document.querySelectorAll('.info-extra');
+
+    todas.forEach(info => {
+
+        if(info.id !== id){
+
+            info.classList.remove('active');
+
+        }
+
+    });
+
+    const actual =
+    document.getElementById(id);
+
+    actual.classList.toggle('active');
+}
+
+/* ================= PAGINAS ================= */
+
+function abrirElemento(id){
+
+    cerrarElementos();
+
+    document
+    .getElementById(id)
+    .classList.add('active');
+
+    window.scrollTo(0,0);
+}
+
+function cerrarElementos(){
+
+    const paginas =
+    document.querySelectorAll('.element-page');
+
+    paginas.forEach(pagina => {
+
+        pagina.classList.remove('active');
+
+    });
+}
+
+/* ================= CARRITO ================= */
+
+let carrito = [];
+
+/* ================= AGREGAR ================= */
+
+function agregarCarrito(nombre, precio){
+
+    carrito.push({
+
+        nombre: nombre,
+
+        precio: precio
+
+    });
+
+    actualizarCarrito();
+
+    alert(
+        nombre +
+        " agregado al carrito 🛒"
+    );
+}
+
+/* ================= ACTUALIZAR ================= */
+
+function actualizarCarrito(){
+
+    const lista =
+    document.getElementById("lista-carrito");
+
+    const total =
+    document.getElementById("total");
+
+    lista.innerHTML = "";
+
+    let suma = 0;
+
+    if(carrito.length === 0){
+
+        lista.innerHTML = `
+
+        <p class="vacio">
+            No hay productos agregados.
+        </p>
+
+        `;
+
+        total.innerHTML =
+        "Total: $0 COP";
+
+        return;
+    }
+
+    carrito.forEach((producto,index)=>{
+
+        suma += producto.precio;
+
+        lista.innerHTML += `
+
+        <div class="item-carrito">
+
+            <div class="item-info">
+
+                <h4>
+                    ${producto.nombre}
+                </h4>
+
+                <p>
+                    $${producto.precio.toLocaleString()} COP
+                </p>
+
+            </div>
+
+            <button
+            class="btn-eliminar"
+            onclick="eliminarProducto(${index})">
+
+                Eliminar
+
+            </button>
+
+        </div>
+
+        `;
+    });
+
+    total.innerHTML =
+
+    "Total: $" +
+
+    suma.toLocaleString()
+
+    + " COP";
+}
+
+/* ================= ELIMINAR ================= */
+
+function eliminarProducto(index){
+
+    carrito.splice(index,1);
+
+    actualizarCarrito();
+}
+
+/* ================= FINALIZAR ================= */
+
+function finalizarCompra(){
+
+    if(carrito.length === 0){
+
+        alert(
+            "Tu carrito está vacío 🛒"
+        );
+
+        return;
+    }
+
+    let resumen =
+    "🧾 RESUMEN DE COMPRA\n\n";
+
+    let total = 0;
+
+    carrito.forEach(producto => {
+
+        resumen +=
+
+        "• " +
+
+        producto.nombre +
+
+        " - $" +
+
+        producto.precio.toLocaleString()
+
+        + " COP\n";
+
+        total += producto.precio;
+    });
+
+    resumen +=
+
+    "\nTOTAL: $" +
+
+    total.toLocaleString()
+
+    + " COP";
+
+    alert(resumen);
+
+    alert(
+        "✅ Gracias por comprar en ELEMENTALS"
+    );
+
+    carrito = [];
+
+    actualizarCarrito();
+}
+
+</script>```html
+<section class="fragancias">
+
+    <!-- ================= FIRE ================= -->
+
+    <div class="card" id="fire">
+
+        <img src="fire.png" alt="Fire Essence">
+
+        <div class="card-content">
+
+            <h3>🔥 Fire Essence</h3>
+
+            <p>
+                Fragancia intensa y poderosa inspirada en el fuego.
+            </p>
+
+            <!-- BOTONES -->
+            <div class="botones-card">
+
+                <button class="btn"
+                onclick="mostrarInfo('fireInfo')">
+
+                    Explorar
+
+                </button>
+
+                <button class="btn carrito-btn"
+                onclick="agregarCarrito('Fire Essence',79900)">
+
+                    🛒 Añadir
+
+                </button>
+
+            </div>
+
+            <!-- INFO -->
+            <div class="info-extra" id="fireInfo">
+
+                <h4>Precio: $79.900 COP</h4>
+
+                <p>
+                    Fire Essence combina canela,
+                    cuero oscuro y vainilla ahumada
+                    creando una fragancia intensa,
+                    elegante y seductora.
+
+                    Diseñada para personas seguras,
+                    dominantes y apasionadas.
+
+                    Cada gota transmite fuerza,
+                    lujo y misterio.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ================= WATER ================= -->
+
+    <div class="card" id="water">
+
+        <img src="water.png" alt="Water Essence">
+
+        <div class="card-content">
+
+            <h3>💧 Water Essence</h3>
+
+            <p>
+                Inspirada en la frescura del océano.
+            </p>
+
+            <!-- BOTONES -->
+            <div class="botones-card">
+
+                <button class="btn"
+                onclick="mostrarInfo('waterInfo')">
+
+                    Explorar
+
+                </button>
+
+                <button class="btn carrito-btn"
+                onclick="agregarCarrito('Water Essence',64900)">
+
+                    🛒 Añadir
+
+                </button>
+
+            </div>
+
+            <!-- INFO -->
+            <div class="info-extra" id="waterInfo">
+
+                <h4>Precio: $64.900 COP</h4>
+
+                <p>
+                    Water Essence mezcla notas
+                    marinas, cítricos frescos
+                    y menta natural.
+
+                    Su producción está inspirada
+                    en la tranquilidad del océano
+                    y la libertad del viento costero.
+
+                    Perfecta para quienes buscan
+                    frescura, limpieza y elegancia.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ================= EARTH ================= -->
+
+    <div class="card" id="earth">
+
+        <img src="earth.png" alt="Earth Essence">
+
+        <div class="card-content">
+
+            <h3>🌿 Earth Essence</h3>
+
+            <p>
+                Esencia natural con notas verdes.
+            </p>
+
+            <!-- BOTONES -->
+            <div class="botones-card">
+
+                <button class="btn"
+                onclick="mostrarInfo('earthInfo')">
+
+                    Explorar
+
+                </button>
+
+                <button class="btn carrito-btn"
+                onclick="agregarCarrito('Earth Essence',74900)">
+
+                    🛒 Añadir
+
+                </button>
+
+            </div>
+
+            <!-- INFO -->
+            <div class="info-extra" id="earthInfo">
+
+                <h4>Precio: $74.900 COP</h4>
+
+                <p>
+                    Earth Essence nace de la mezcla
+                    entre sándalo, cedro y hojas verdes.
+
+                    Una fragancia elegante,
+                    profunda y sofisticada
+                    creada para transmitir calma,
+                    estabilidad y exclusividad.
+
+                    Su aroma deja una presencia
+                    inolvidable y natural.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ================= WIND ================= -->
+
+    <div class="card" id="wind">
+
+        <img src="wind.png" alt="Wind Essence">
+
+        <div class="card-content">
+
+            <h3>🌪 Wind Essence</h3>
+
+            <p>
+                Ligera, moderna y refrescante.
+            </p>
+
+            <!-- BOTONES -->
+            <div class="botones-card">
+
+                <button class="btn"
+                onclick="mostrarInfo('windInfo')">
+
+                    Explorar
+
+                </button>
+
+                <button class="btn carrito-btn"
+                onclick="agregarCarrito('Wind Essence',69900)">
+
+                    🛒 Añadir
+
+                </button>
+
+            </div>
+
+            <!-- INFO -->
+            <div class="info-extra" id="windInfo">
+
+                <h4>Precio: $69.900 COP</h4>
+
+                <p>
+                    Wind Essence fue creada
+                    para representar libertad,
+                    movimiento y modernidad.
+
+                    Su mezcla floral con almizcle
+                    suave crea un aroma limpio,
+                    elegante y extremadamente fresco.
+
+                    Ideal para personas auténticas
+                    que desean destacar naturalmente.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+```
